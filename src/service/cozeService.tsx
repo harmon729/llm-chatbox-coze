@@ -19,7 +19,7 @@ async function quickChat() {
     additional_messages: [
       {
         role: RoleType.User,
-        content: "Hello!",
+        content: "不要调用任何外部工具, 用c写一个斐波那契数列",
         content_type: "text",
       },
     ],
@@ -54,4 +54,4 @@ async function streamChat() {
 
 // 调用
 quickChat().catch((error) => console.error("Error:", error));
-streamChat().catch((error) => console.error("Error:", error));
+// streamChat().catch((error) => console.error("Error:", error));
