@@ -30,10 +30,10 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link href="/inline_box">Homepage</Link>
+              <Link href="/inline_box">Inline Mode</Link>
             </li>
             <li>
-              <Link href="/standalone_box">Portfolio</Link>
+              <Link href="/standalone_box">Standalone Mode</Link>
             </li>
             <li>
               <Link href="/about">About</Link>
