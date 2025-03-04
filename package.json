@@ -1,11 +1,12 @@
 {
   "dependencies": {
-    "@coze/api": "^1.1.0"
+    "@coze/api": "^1.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
   },
   "name": "llmchatbox-coze",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

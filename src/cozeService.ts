@@ -1,4 +1,10 @@
-import { CozeAPI, COZE_CN_BASE_URL, ChatStatus, RoleType } from "@coze/api";
+import {
+  CozeAPI,
+  COZE_CN_BASE_URL,
+  ChatStatus,
+  RoleType,
+  ChatEventType,
+} from "@coze/api";
 
 // 使用个人访问令牌初始化客户端
 const client = new CozeAPI({
@@ -26,3 +32,26 @@ async function quickChat() {
     console.log("usage", v.chat.usage);
   }
 }
+
+async function streamChat() {
+  const stream = await client.chat.stream({
+    bot_id: "7477479625686499378",
+    additional_messages: [
+      {
+        role: RoleType.User,
+        content: "Hello!",
+        content_type: "text",
+      },
+    ],
+  });
+
+  for await (const part of stream) {
+    if (part.event === ChatEventType.CONVERSATION_MESSAGE_DELTA) {
+      process.stdout.write(part.data.content); // 实时响应
+    }
+  }
+}
+
+// 调用
+// quickChat().catch((error) => console.error("Error:", error));
+// streamChat().catch((error) => console.error("Error:", error));
