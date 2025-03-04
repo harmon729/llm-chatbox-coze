@@ -54,4 +54,4 @@ async function streamChat() {
 
 // 调用
 quickChat().catch((error) => console.error("Error:", error));
-// streamChat().catch((error) => console.error("Error:", error));
+streamChat().catch((error) => console.error("Error:", error));
