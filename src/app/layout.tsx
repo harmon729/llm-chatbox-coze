@@ -23,7 +23,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isInlineBoxVisible, setIsInlineBoxVisible] = useState(true);
+  const [isInlineBoxVisible, setIsInlineBoxVisible] = useState(false);
 
   // 添加 Ctrl+K 键盘事件监听器
   useEffect(() => {

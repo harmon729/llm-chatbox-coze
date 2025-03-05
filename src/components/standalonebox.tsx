@@ -5,6 +5,8 @@ import Image from "next/image";
 import { streamChat, uploadFile, retrieveFile } from "@/services/cozeService";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import CodeBlock from "./CodeBlock";
+import { Components } from "react-markdown";
 
 type MessageType = {
   type: "user" | "ai";
@@ -66,6 +68,25 @@ export default function StandaloneBox() {
   } | null>(null);
   const responseRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const markdownComponents: Components = {
+    code({ className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || "");
+      const language = match ? match[1] : undefined;
+      const isInline = !className; // 如果没有className，通常表示这是内联代码
+
+      return isInline ? (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      ) : (
+        <CodeBlock
+          language={language}
+          value={String(children).replace(/\n$/, "")}
+        />
+      );
+    },
+  };
 
   // 判断文件是否为图片类型
   const isImageFile = (file: File): boolean => {
@@ -287,7 +308,10 @@ export default function StandaloneBox() {
                   <div className="whitespace-pre-wrap">
                     {msg.type === "ai" ? (
                       <div className="markdown">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={markdownComponents}
+                        >
                           {msg.content}
                         </ReactMarkdown>
                       </div>
@@ -411,7 +435,10 @@ export default function StandaloneBox() {
                   </div>
                   <div className="whitespace-pre-wrap">
                     <div className="markdown">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={markdownComponents}
+                      >
                         {currentResponse}
                       </ReactMarkdown>
                     </div>
