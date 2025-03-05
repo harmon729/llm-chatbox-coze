@@ -12,11 +12,12 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prepare-release": "semantic-release",
-    "prepare": "husky"
+    "prepare": "node -e \"if(process.env.CI !== 'true' && process.env.VERCEL !== '1') { try { require('husky'); } catch(e) { console.log('Husky not available'); } }\""
   },
   "dependencies": {
     "@coze/api": "^1.1.0",
     "@tailwindcss/typography": "^0.5.16",
+    "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^10.0.1",
@@ -36,6 +37,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -50,6 +52,7 @@
     "semantic-release": "^24.2.3",
     "sharp": "^0.33.5",
     "tailwindcss": "^4",
+    "ts-jest": "^29.2.6",
     "typescript": "^5"
   }
 }

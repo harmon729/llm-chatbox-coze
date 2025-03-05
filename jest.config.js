@@ -1,4 +1,5 @@
 module.exports = {
+  preset: "ts-jest",
   testEnvironment: "jsdom",
   collectCoverage: true,
   collectCoverageFrom: [
@@ -25,12 +26,17 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/.next/"],
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": [
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
+      {
+        tsconfig: "tsconfig.json",
+      },
+    ],
+    "^.+\\.(js|jsx)$": [
       "babel-jest",
       {
         presets: [
           ["@babel/preset-env", { targets: { node: "current" } }],
-          "@babel/preset-typescript",
           ["@babel/preset-react", { runtime: "automatic" }],
         ],
       },
