@@ -2,8 +2,8 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/navbar";
-import InlineBox from "@/components/inlinebox";
+import Navbar from "../components/layout/navbar";
+import InlineBox from "@/components/chat/inlinebox";
 import { useState, useEffect } from "react";
 
 const geistSans = Geist({

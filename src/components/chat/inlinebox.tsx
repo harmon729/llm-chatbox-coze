@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { streamChat } from "@/services/cozeService";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import CodeBlock from "./CodeBlock";
+import CodeBlock from "../ui/CodeBlock";
 import { Components } from "react-markdown";
 
 interface InlineBoxProps {
@@ -257,7 +257,10 @@ export default function InlineBox({
                   </div>
 
                   {isLoading && !aiResponse ? (
-                    <div className="flex items-center space-x-2 mt-2">
+                    <div
+                      className="flex items-center space-x-2 mt-2"
+                      data-testid="loading-indicator"
+                    >
                       <div
                         className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                         style={{ animationDelay: "0ms" }}

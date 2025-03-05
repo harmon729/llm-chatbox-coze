@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { streamChat, uploadFile, retrieveFile } from "@/services/cozeService";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import CodeBlock from "./CodeBlock";
+import CodeBlock from "../ui/CodeBlock";
 import { Components } from "react-markdown";
 
 type MessageType = {

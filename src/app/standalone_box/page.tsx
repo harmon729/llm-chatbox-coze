@@ -1,4 +1,4 @@
-import StandaloneBox from "@/components/standalonebox";
+import StandaloneBox from "@/components/chat/standalonebox";
 
 export default function StandaloneBoxPage() {
   return (
