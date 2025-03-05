@@ -12,7 +12,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "prepare-release": "semantic-release",
-    "prepare": "node -e \"try { require('husky'); } catch (e) {}\""
+    "prepare": "husky"
   },
   "dependencies": {
     "@coze/api": "^1.1.0",

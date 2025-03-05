@@ -1,8 +1,0 @@
-.git
-.husky
-.github
-node_modules
-coverage
-README.md
-LICENSE
-*.log 
