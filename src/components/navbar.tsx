@@ -40,13 +40,13 @@ export default function Navbar({
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[100] mt-3 w-52 p-2 shadow"
           >
             <li>
+              <Link href="/">主页</Link>
+            </li>
+            <li>
               <Link href="/inline_box">内联模式</Link>
             </li>
             <li>
               <Link href="/standalone_box">独立模式</Link>
-            </li>
-            <li>
-              <Link href="/about">关于</Link>
             </li>
           </ul>
         </div>
