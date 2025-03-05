@@ -68,6 +68,12 @@ export default function StandaloneBox() {
   } | null>(null);
   const responseRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // 确保只在客户端进行渲染
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const markdownComponents: Components = {
     code({ className, children, ...props }) {
@@ -275,6 +281,11 @@ export default function StandaloneBox() {
     // 发送后清空输入框
     setMessage("");
   };
+
+  // 在渲染部分，添加客户端检查
+  if (!isMounted) {
+    return <div className="loading">加载中...</div>; // 简单的加载状态
+  }
 
   return (
     <div className="flex flex-col flex-1 w-full h-[89.6vh] mx-auto bg-[#343541] text-white rounded-md overflow-hidden">

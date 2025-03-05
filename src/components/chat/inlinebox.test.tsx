@@ -1,14 +1,34 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import InlineBox from "./inlinebox";
+import { streamChat } from "@/services/cozeService";
 
 // 模拟cozeService
 jest.mock("../../services/cozeService", () => ({
-  sendMessage: jest.fn().mockResolvedValue({
-    text: "This is a mocked response",
-    prompt_tokens: 10,
-    completion_tokens: 10,
+  streamChat: jest.fn((message, onData, onComplete, onError) => {
+    // 立即返回一些数据
+    onData("模拟的响应");
+    // 模拟完成
+    setTimeout(() => onComplete("模拟的完整响应"), 100);
+    return () => {}; // 返回取消函数
   }),
 }));
+
+// 模拟react-markdown
+jest.mock("react-markdown", () => {
+  return {
+    __esModule: true,
+    default: ({ children }) => <div data-testid="markdown">{children}</div>,
+  };
+});
+
+// 模拟remark-gfm
+jest.mock("remark-gfm", () => {
+  return {
+    __esModule: true,
+    default: () => ({}),
+  };
+});
 
 describe("InlineBox Component", () => {
   beforeEach(() => {
@@ -17,58 +37,65 @@ describe("InlineBox Component", () => {
   });
 
   it("renders the initial state correctly", () => {
-    render(<InlineBox defaultPrompt="Hello" />);
-
-    // 检查是否渲染了聊天框和输入框
-    expect(screen.getByPlaceholderText("输入消息...")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "发送" })).toBeInTheDocument();
-  });
-
-  it("displays the default prompt when provided", () => {
-    render(<InlineBox defaultPrompt="测试默认提示" />);
-
-    // 检查默认提示是否显示在输入框中
-    expect(
-      screen.getByPlaceholderText("输入消息...").getAttribute("value")
-    ).toBe("测试默认提示");
-  });
-
-  it("handles input change correctly", () => {
     render(<InlineBox />);
 
-    const inputElement = screen.getByPlaceholderText("输入消息...");
-    fireEvent.change(inputElement, { target: { value: "新消息" } });
+    // 检查是否渲染了搜索框
+    expect(screen.getByPlaceholderText("搜索内容")).toBeInTheDocument();
+    // 检查是否渲染了AI按钮
+    expect(screen.getByText("询问AI")).toBeInTheDocument();
+  });
+
+  it("handles AI button click correctly", () => {
+    render(<InlineBox />);
+
+    // 点击AI按钮打开对话框
+    fireEvent.click(screen.getByText("询问AI"));
+
+    // 检查是否显示AI助手文本
+    expect(screen.getByText("AI助手")).toBeInTheDocument();
+    expect(
+      screen.getByText("请输入您的问题，我将为您提供答案。")
+    ).toBeInTheDocument();
+  });
+
+  it("handles search input change correctly", () => {
+    render(<InlineBox />);
+
+    // 找到搜索输入框并输入内容
+    const searchInput = screen.getByPlaceholderText("搜索内容");
+    fireEvent.change(searchInput, { target: { value: "搜索测试" } });
 
     // 检查输入值是否正确更新
-    expect(inputElement.value).toBe("新消息");
+    expect(searchInput.value).toBe("搜索测试");
   });
 
-  it("disables the send button when input is empty", () => {
+  it("shows AI response when sending a message", async () => {
     render(<InlineBox />);
 
-    // 检查发送按钮是否被禁用
-    expect(screen.getByRole("button", { name: "发送" })).toBeDisabled();
+    // 输入搜索内容
+    const searchInput = screen.getByPlaceholderText("搜索内容");
+    fireEvent.change(searchInput, { target: { value: "测试问题" } });
+
+    // 点击询问AI按钮
+    fireEvent.click(screen.getByText("询问AI"));
+
+    // 等待AI响应
+    await waitFor(() => {
+      expect(screen.getByTestId("markdown")).toBeInTheDocument();
+    });
   });
 
-  it("enables the send button when input has content", () => {
+  it("calls streamChat when sending a message", async () => {
     render(<InlineBox />);
 
-    const inputElement = screen.getByPlaceholderText("输入消息...");
-    fireEvent.change(inputElement, { target: { value: "新消息" } });
+    // 输入搜索内容
+    const searchInput = screen.getByPlaceholderText("搜索内容");
+    fireEvent.change(searchInput, { target: { value: "测试问题" } });
 
-    // 检查发送按钮是否被启用
-    expect(screen.getByRole("button", { name: "发送" })).not.toBeDisabled();
-  });
+    // 点击询问AI按钮
+    fireEvent.click(screen.getByText("询问AI"));
 
-  it("shows loading state when processing message", async () => {
-    render(<InlineBox />);
-
-    // 输入消息并发送
-    const inputElement = screen.getByPlaceholderText("输入消息...");
-    fireEvent.change(inputElement, { target: { value: "新消息" } });
-    fireEvent.click(screen.getByRole("button", { name: "发送" }));
-
-    // 检查是否显示加载状态
-    expect(screen.getByTestId("loading-indicator")).toBeInTheDocument();
+    // 验证streamChat被调用
+    expect(streamChat).toHaveBeenCalled();
   });
 });
