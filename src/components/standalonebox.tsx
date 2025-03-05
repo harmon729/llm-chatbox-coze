@@ -277,7 +277,7 @@ export default function StandaloneBox() {
   };
 
   return (
-    <div className="flex flex-col flex-1 w-full h-[85vh] mx-auto bg-[#343541] text-white rounded-md overflow-hidden">
+    <div className="flex flex-col flex-1 w-full h-[89.6vh] mx-auto bg-[#343541] text-white rounded-md overflow-hidden">
       {/* 聊天记录显示区域 */}
       <div
         ref={responseRef}

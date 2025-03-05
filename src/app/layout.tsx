@@ -24,6 +24,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [isInlineBoxVisible, setIsInlineBoxVisible] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  // 初始化主题
+  useEffect(() => {
+    // 检查本地存储
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    // 检查系统偏好
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    // 优先使用保存的主题，如果没有则使用系统偏好
+    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+    setTheme(initialTheme);
+    document.documentElement.setAttribute("data-theme", initialTheme);
+  }, []);
+
+  // 切换主题函数
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
 
   // 添加 Ctrl+K 键盘事件监听器
   useEffect(() => {
@@ -57,18 +81,22 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="zh">
+    <html lang="zh" data-theme={theme}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar onSearchClick={handleShowInlineBox} />
+        <Navbar
+          onSearchClick={handleShowInlineBox}
+          currentTheme={theme}
+          onThemeToggle={toggleTheme}
+        />
         <div className="flex justify-center items-center">
           <InlineBox
             isVisible={isInlineBoxVisible}
             onClose={handleCloseInlineBox}
           />
         </div>
-        {children}
+        <main className="pt-16">{children}</main>
       </body>
     </html>
   );
