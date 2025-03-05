@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export default function Navbar() {
+interface NavbarProps {
+  onSearchClick?: () => void;
+}
+
+export default function Navbar({ onSearchClick }: NavbarProps) {
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -30,13 +34,13 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link href="/inline_box">Inline Mode</Link>
+              <Link href="/inline_box">内联模式</Link>
             </li>
             <li>
-              <Link href="/standalone_box">Standalone Mode</Link>
+              <Link href="/standalone_box">独立模式</Link>
             </li>
             <li>
-              <Link href="/about">About</Link>
+              <Link href="/about">关于</Link>
             </li>
           </ul>
         </div>
@@ -47,7 +51,10 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="navbar-end">
-        <button className="btn btn-ghost btn-circle border-0 mr-3">
+        <button
+          className="btn btn-ghost btn-circle border-0 mr-3"
+          onClick={onSearchClick}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5"

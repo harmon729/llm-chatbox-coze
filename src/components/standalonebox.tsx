@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { streamChat, uploadFile, retrieveFile } from "@/services/cozeService";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -486,10 +487,13 @@ export default function StandaloneBox() {
               <div className="flex items-center flex-grow">
                 {tempFileInfo.isImage && tempFileInfo.localUrl ? (
                   <div className="flex flex-col items-center mr-3">
-                    <img
+                    <Image
                       src={tempFileInfo.localUrl}
                       alt={tempFileInfo.filename}
-                      className="max-h-32 max-w-32 rounded-md object-contain"
+                      width={128}
+                      height={128}
+                      className="rounded-md object-contain"
+                      unoptimized
                     />
                   </div>
                 ) : (
