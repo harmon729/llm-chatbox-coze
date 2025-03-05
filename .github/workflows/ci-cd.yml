@@ -2,9 +2,9 @@ name: LLM Chat Box CI/CD
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, dev]
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, dev]
   release:
     types: [created]
 
