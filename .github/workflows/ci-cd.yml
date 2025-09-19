@@ -56,9 +56,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy to Vercel (Preview)
-        uses: amondnet/vercel-action@v20
+        uses: amondnet/vercel-action@v25  # 使用最新版本
         with:
-          zeit-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -72,9 +71,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Deploy to Vercel (Production)
-        uses: amondnet/vercel-action@v20
+        uses: amondnet/vercel-action@v25  # 使用最新版本
         with:
-          zeit-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}

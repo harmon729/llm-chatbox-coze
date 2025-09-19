@@ -3,7 +3,7 @@ import StandaloneBox from "./standalonebox";
 
 // 模拟cozeService
 jest.mock("../../services/cozeService", () => ({
-  streamChat: jest.fn((message, onData, onComplete, onError) => {
+  streamChat: jest.fn((message, onData, onComplete) => {
     // 立即返回一些数据
     onData("模拟的响应");
     // 模拟完成
@@ -18,7 +18,9 @@ jest.mock("../../services/cozeService", () => ({
 jest.mock("react-markdown", () => {
   return {
     __esModule: true,
-    default: ({ children }) => <div data-testid="markdown">{children}</div>,
+    default: ({ children }: { children: React.ReactNode }) => (
+      <div data-testid="markdown">{children}</div>
+    ),
   };
 });
 
@@ -50,7 +52,9 @@ describe("StandaloneBox Component", () => {
   it("handles input change correctly", () => {
     render(<StandaloneBox />);
 
-    const inputElement = screen.getByPlaceholderText("发送消息...");
+    const inputElement = screen.getByPlaceholderText(
+      "发送消息..."
+    ) as HTMLInputElement;
     fireEvent.change(inputElement, { target: { value: "新消息" } });
 
     // 检查输入值是否正确更新

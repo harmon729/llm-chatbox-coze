@@ -1,0 +1,1 @@
+{"version":3,"file":"inlinebox.d.ts","sourceRoot":"","sources":["../../../src/components/chat/inlinebox.tsx"],"names":[],"mappings":"AASA,UAAU,cAAc;IACtB,SAAS,CAAC,EAAE,OAAO,CAAC;IACpB,OAAO,CAAC,EAAE,MAAM,IAAI,CAAC;CACtB;AAED,MAAM,CAAC,OAAO,UAAU,SAAS,CAAC,EAChC,SAAgB,EAChB,OAAO,GACR,EAAE,cAAc,sCA2UhB"}

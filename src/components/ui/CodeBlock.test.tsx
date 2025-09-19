@@ -38,8 +38,8 @@ describe("CodeBlock Component", () => {
     const codeElement = screen
       .getByLabelText("复制代码")
       .closest("pre")
-      .querySelector("code");
+      ?.querySelector("code");
     expect(codeElement).toBeInTheDocument();
-    expect(codeElement.textContent).toBe("");
+    expect(codeElement?.textContent).toBe("");
   });
 });
