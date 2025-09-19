@@ -82,5 +82,8 @@
     "tailwindcss": "^4",
     "ts-jest": "^29.2.6",
     "typescript": "^5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
