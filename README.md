@@ -1,7 +1,7 @@
 # LLM 聊天框组件 🚀
 
 [![CI/CD](https://github.com/harmon729/llm-chatbox-coze/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/harmon729/llm-chatbox-coze/actions/workflows/ci-cd.yml)
-[![codecov](https://codecov.io/gh/user/llm-chatbox/branch/main/graph/badge.svg)](https://codecov.io/gh/user/llm-chatbox)
+[![codecov](https://codecov.io/github/harmon729/llm-chatbox-coze/graph/badge.svg?token=NJ61MQW634)](https://codecov.io/github/harmon729/llm-chatbox-coze)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://makeapullrequest.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
