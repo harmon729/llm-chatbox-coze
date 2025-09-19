@@ -16,7 +16,7 @@ jobs:
   code-quality:
     name: 🔍 Code Quality & Testing
     runs-on: ubuntu-latest
-    if: github.event.pull_request.draft == false
+    if: github.event.pull_request.draft == false || github.event_name == 'push'
 
     steps:
       - name: 📦 Checkout code
@@ -141,7 +141,7 @@ jobs:
   semantic-release:
     name: 📦 Semantic Release
     runs-on: ubuntu-latest
-    needs: production-deploy
+    needs: [code-quality, build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     outputs:
