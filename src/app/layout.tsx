@@ -38,9 +38,5 @@ export default function RootLayout({
 }>) {
   const fontVariables = `${geistSans.variable} ${geistMono.variable}`;
 
-  return (
-    <ClientLayout fontVariables={fontVariables}>
-      {children}
-    </ClientLayout>
-  );
+  return <ClientLayout fontVariables={fontVariables}>{children}</ClientLayout>;
 }
