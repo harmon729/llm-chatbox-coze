@@ -132,5 +132,5 @@ vercel
 ---
 
 <p align="center">
-  用 ❤️ 打造 | <a href="https://github.com/user/llm-chatbox">GitHub</a>
+  用 ❤️ 打造 | <a href="https://github.com/harmon729/llm-chatbox-coze">GitHub</a>
 </p>

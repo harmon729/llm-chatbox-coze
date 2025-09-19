@@ -9,7 +9,10 @@ interface ClientLayoutProps {
   fontVariables: string;
 }
 
-export default function ClientLayout({ children, fontVariables }: ClientLayoutProps) {
+export default function ClientLayout({
+  children,
+  fontVariables,
+}: ClientLayoutProps) {
   const [isInlineBoxVisible, setIsInlineBoxVisible] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
