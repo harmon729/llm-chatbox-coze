@@ -8,7 +8,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 
 env:
-  NODE_VERSION: "20.8.1"
+  NODE_VERSION: "22.x"
   CACHE_DEPENDENCY_PATH: package-lock.json
 
 jobs:
@@ -158,7 +158,7 @@ jobs:
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: "22"
           cache: npm
           cache-dependency-path: ${{ env.CACHE_DEPENDENCY_PATH }}
 
@@ -167,12 +167,8 @@ jobs:
 
       - name: 🏷️ Semantic Release
         id: semantic
-        uses: cycjimmy/semantic-release-action@v4
-        with:
-          semantic_version: 24
-          extra_plugins: |
-            @semantic-release/changelog@6
-            @semantic-release/git@10
+        run: |
+          npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
